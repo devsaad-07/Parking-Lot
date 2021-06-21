@@ -54,13 +54,43 @@ public class ParkingSystem {
 	}
 	
 	public void status() {
+		System.out.println("Slot No. Registration No Colour");
 		for(HashMap.Entry<Integer, Car> var : map.entrySet()) {
-			Integer key = var.getKey();
 			Car car = var.getValue();
 			String registrationNumber = car.getRegistrationNumber();
 			String color = car.getColor();
-			System.out.println(var.getKey() + "  " + registrationNumber + "  " + color);
+			System.out.println("    " + var.getKey() + "  " + registrationNumber + "  " + color);
 		}
 	}
 	
+	public void registration_numbers_for_cars_with_colour(String color) {
+		for(HashMap.Entry<Integer, Car> var : map.entrySet()) {
+			Car car = var.getValue();
+			if(car.getColor().equals(color)) {
+				System.out.print(car.getRegistrationNumber() + " ");
+			}
+		}
+		System.out.println();
+	}
+	
+	public void slot_numbers_for_cars_with_colour(String color) {
+		for(HashMap.Entry<Integer, Car> var : map.entrySet()) {
+			Car car = var.getValue();
+			if(car.getColor().equals(color)) {
+				System.out.print(var.getKey() + " ");
+			}
+		}
+		System.out.println();
+	}
+	
+	public void slot_number_for_registration_number(String registrationNumber) {
+		for(HashMap.Entry<Integer, Car> var : map.entrySet()) {
+			Car car = var.getValue();
+			if(car.getRegistrationNumber().equals(registrationNumber)) {
+				System.out.println(var.getKey());
+				return;
+			}
+		}
+		System.out.println("Not found");
+	}
 }
