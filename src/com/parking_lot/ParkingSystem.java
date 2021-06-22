@@ -22,11 +22,11 @@ public class ParkingSystem {
 		return false;
 	}
 	
-	public void park(Car car) {
+	public int park(Car car) {
 		
 		if(isFull(map.size(), size)) {
 			System.out.println("Sorry, parking lot is full");
-			return;
+			return -1;
 		}
 		
 		int slotParked;
@@ -39,9 +39,10 @@ public class ParkingSystem {
 			map.put(slotParked, car);
 		}
 		System.out.println("Allocated slot number: " + slotParked);
+		return map.size();
 	}
 	
-	public void leave(int slotNumber) {
+	public int leave(int slotNumber) {
 		if(map.containsKey(slotNumber)) {
 			pQueue.add(slotNumber);
 			map.remove(slotNumber);
@@ -50,7 +51,7 @@ public class ParkingSystem {
 		else {
 			System.out.println("No car parked at slot " + slotNumber);
 		}
-		
+		return map.size();
 	}
 	
 	public void status() {
@@ -63,34 +64,41 @@ public class ParkingSystem {
 		}
 	}
 	
-	public void registration_numbers_for_cars_with_colour(String color) {
+	public String registration_numbers_for_cars_with_colour(String color) {
+		String string="";
 		for(HashMap.Entry<Integer, Car> var : map.entrySet()) {
 			Car car = var.getValue();
 			if(car.getColor().equals(color)) {
-				System.out.print(car.getRegistrationNumber() + " ");
+				string+=car.getRegistrationNumber();
+				string+=" ";
 			}
 		}
-		System.out.println();
+		System.out.println(string);
+		return string;
 	}
 	
-	public void slot_numbers_for_cars_with_colour(String color) {
+	public String slot_numbers_for_cars_with_colour(String color) {
+		String string="";
 		for(HashMap.Entry<Integer, Car> var : map.entrySet()) {
 			Car car = var.getValue();
 			if(car.getColor().equals(color)) {
-				System.out.print(var.getKey() + " ");
+				string+=String.valueOf(var.getKey());
+				string+=" ";
 			}
 		}
-		System.out.println();
+		System.out.println(string);
+		return string;
 	}
 	
-	public void slot_number_for_registration_number(String registrationNumber) {
+	public String slot_number_for_registration_number(String registrationNumber) {
 		for(HashMap.Entry<Integer, Car> var : map.entrySet()) {
 			Car car = var.getValue();
 			if(car.getRegistrationNumber().equals(registrationNumber)) {
 				System.out.println(var.getKey());
-				return;
+				return String.valueOf(var.getKey());
 			}
 		}
 		System.out.println("Not found");
+		return "Not found";
 	}
 }
